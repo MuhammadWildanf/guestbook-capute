@@ -51,7 +51,7 @@ document.getElementById("next").addEventListener('click', e => {
 
 async function submit(name, email, country, comment) {
     try {
-        const response = await fetch('http://localhost:3000/submit-form', {
+        const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/submit-form', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ async function submit(name, email, country, comment) {
 
 async function updateData(key, name, email, country, comment) {
     try {
-        const response = await fetch('http://localhost:3000/update-form', {
+        const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/update-form', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
