@@ -1,0 +1,42 @@
+body {
+  background-image: url("background.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  flex-direction: column;
+  position: absolute;
+  top: 75px;
+}
+
+.navbar {
+  height: 75px;
+  background-color: black;
+}
+
+.select2-container .select2-selection--single {
+  height: 38px;
+  padding: 6px 12px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 24px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 36px;
+  right: 10px;
+}
+
+@media (max-height: 675px) {
+  .wrapper {
+    top: 50px;
+  }
+}
