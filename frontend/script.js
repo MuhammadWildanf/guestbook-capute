@@ -7,6 +7,9 @@ $(document).ready(function () {
 
 var key
 
+var a = WOWW
+console.log(a.toLowerCase())
+
 document.getElementById("submit").addEventListener('click', e => {
     e.preventDefault()
     var name = document.getElementById("name").value
