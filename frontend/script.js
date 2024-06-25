@@ -19,16 +19,25 @@ document.getElementById("submit").addEventListener('click', e => {
 
     console.log(name, email, country, comment)
 
-    document.getElementById("p2").style.display = 'flex'
-    document.getElementById("p1").style.display = 'none'
+    if (comment = " ") {
+        Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "Something went wrong!",
+        });
+    } else {
+        document.getElementById("p2").style.display = 'flex'
+        document.getElementById("p1").style.display = 'none'
 
-    Swal.fire({
-        icon: "info",
-        title: "Thank You",
-        text: "Something went wrong!",
-    });
+        Swal.fire({
+            icon: "info",
+            title: "Thank You",
+            text: "Something went wrong!",
+        });
 
-    updateData(key, name, email, country, comment)
+        updateData(key, name, email, country, comment)
+    }
+
 })
 
 document.getElementById("next").addEventListener('click', e => {
@@ -40,16 +49,25 @@ document.getElementById("next").addEventListener('click', e => {
 
     console.log(name, email, country, comment)
 
-    document.getElementById("pg2").style.display = 'block'
-    document.getElementById("pg1").style.display = 'none'
+    if (name == "" || email == "" || country == "") {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "KOSONG",
+        });
+    } else {
+        document.getElementById("pg2").style.display = 'block'
+        document.getElementById("pg1").style.display = 'none'
 
-    Swal.fire({
-        icon: "info",
-        title: "Oops...",
-        text: "Something went wrong!",
-    });
+        Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "Something went wrong!",
+        });
 
-    submit(name, email, country, comment)
+        submit(name, email, country, comment)
+    }
+
 })
 
 async function submit(name, email, country, comment) {
