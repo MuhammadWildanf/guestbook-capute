@@ -11,7 +11,7 @@ document.getElementById("submit").addEventListener('click', e => {
     e.preventDefault()
     var name = document.getElementById("name").value
     var email = document.getElementById("email").value
-    var country = document.getElementById("country").value.toLowerCase
+    var country = document.getElementById("country").value.toLowerCase()
     var comment = document.getElementById("comment").value
 
     console.log(name, email, country, comment)
@@ -32,7 +32,7 @@ document.getElementById("next").addEventListener('click', e => {
     e.preventDefault()
     var name = document.getElementById("name").value
     var email = document.getElementById("email").value
-    var country = document.getElementById("country").value.toLowerCase
+    var country = document.getElementById("country").value.toLowerCase()
     var comment = document.getElementById("comment").value
 
     console.log(name, email, country, comment)
