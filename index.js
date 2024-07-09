@@ -8,7 +8,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+  console.log(`Server running in port:${PORT}`);
 });
 
 admin.initializeApp({
@@ -31,10 +31,10 @@ app.use(cors({ origin: true }));
 app.post('/submit-form', async (req, res) => {
   try {
     const db = admin.database()
-    const { name, email, country, comment } = req.body;
+    const { name, email, country, company, char, comment } = req.body;
     const timestamp = admin.database.ServerValue.TIMESTAMP;
-    const ref = db.ref('guest');
-    const newRef = await ref.push({ name, email, country, comment, timestamp })
+    const ref = db.ref('testguest');
+    const newRef = await ref.push({ name, email, country, company, char, comment, timestamp })
     const newKey = newRef.key
     res.status(200).json({ key: newKey });
   } catch (error) {
@@ -46,10 +46,10 @@ app.post('/submit-form', async (req, res) => {
 app.post('/update-form', async (req, res) => {
   try {
     const db = admin.database()
-    const { key, name, email, country, comment } = req.body;
-    const ref = db.ref(`/guest/${key}`);
+    const { key, name, email, country, company, char, comment } = req.body;
+    const ref = db.ref(`/testguest/${key}`);
     const timestamp = admin.database.ServerValue.TIMESTAMP;
-    await ref.update({ name, email, country, comment, timestamp });
+    await ref.update({ name, email, country, company, char, comment, timestamp });
     res.status(200).json({ msg: "Data Updated Successfully" });
   } catch (error) {
     console.error('Error updating data:', error);
