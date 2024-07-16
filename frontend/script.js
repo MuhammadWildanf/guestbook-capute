@@ -21,15 +21,16 @@ document.getElementById("submit").addEventListener('click', e => {
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Something went wrong!",
+            text: "Fill in the empty fields first!",
         });
     } else {
-        document.getElementById("p2").style.display = 'flex'
+        document.getElementById("p2").style.display = 'block'
         document.getElementById("p1").style.display = 'none'
 
         Swal.fire({
             icon: "info",
-            title: "Data Submitted Successfully",
+            title: "Success!",
+            text: "Data Submitted Successfully"
         });
 
         updateData(key, name, email, country, company, char, comment)
@@ -51,7 +52,7 @@ document.getElementById("next").addEventListener('click', e => {
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "KOSONG",
+            text: "Fill in the empty fields first!",
         });
     } else {
         document.getElementById("pg2").style.display = 'block'
@@ -59,7 +60,8 @@ document.getElementById("next").addEventListener('click', e => {
 
         Swal.fire({
             icon: "info",
-            title: "Data Submitted Successfully",
+            title: "Success",
+            text: "Data Submitted Successfully"
         });
 
         submit(name, email, country, company, char, comment)
