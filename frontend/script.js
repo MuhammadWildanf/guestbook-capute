@@ -1,23 +1,13 @@
-$(document).ready(function () {
-    $("#country").select2({
-        placeholder: "Select Country",
-        allowClear: true,
-    });
-});
-
-var key
-
-document.getElementById("submit").addEventListener('click', e => {
+document.getElementById("next").addEventListener('click', e => {
     e.preventDefault()
     var name = document.getElementById("name").value
     var email = document.getElementById("email").value
     var company = document.getElementById("company").value
-    var country = document.getElementById("country").value.toLowerCase()
     var comment = document.getElementById("comment").value
 
-    console.log(name, email, country, comment)
+    console.log(name, email, comment)
 
-    if (comment == "") {
+    if (name == "" || email == "" || comment == "") {
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -29,54 +19,23 @@ document.getElementById("submit").addEventListener('click', e => {
 
         Swal.fire({
             icon: "info",
-            title: "Success!",
-            text: "Data Submitted Successfully"
-        });
-
-        updateData(key, name, email, country, company, char, comment)
-    }
-
-})
-
-document.getElementById("next").addEventListener('click', e => {
-    e.preventDefault()
-    var name = document.getElementById("name").value
-    var email = document.getElementById("email").value
-    var company = document.getElementById("company").value
-    var country = document.getElementById("country").value.toLowerCase()
-    var comment = document.getElementById("comment").value
-
-    console.log(name, email, country, comment)
-
-    if (name == "" || email == "" || country == "") {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Fill in the empty fields first!",
-        });
-    } else {
-        document.getElementById("pg2").style.display = 'block'
-        document.getElementById("pg1").style.display = 'none'
-
-        Swal.fire({
-            icon: "info",
             title: "Success",
             text: "Data Submitted Successfully"
         });
 
-        submit(name, email, country, company, char, comment)
+        submit(name, email, company, char, comment)
     }
 
 })
 
-async function submit(name, email, country, company, char, comment) {
+async function submit(name, email, company, char, comment) {
     try {
-        const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/submit-form', {
+        const response = await fetch('http://localhost:3000/submit-form', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, country, company, char, comment })
+            body: JSON.stringify({ name, email, company, char, comment })
         });
 
         if (!response.ok) {
@@ -93,28 +52,28 @@ async function submit(name, email, country, company, char, comment) {
     }
 }
 
-async function updateData(key, name, email, country, company, char, comment) {
-    try {
-        const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/update-form', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ key, name, email, country, company, char, comment })
-        });
+// async function updateData(key, name, email, company, char, comment) {
+//     try {
+//         const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/update-form', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ key, name, email, company, char, comment })
+//         });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
 
-        const responseData = await response.json();
-        console.log('Response Data:', responseData.msg);
+//         const responseData = await response.json();
+//         console.log('Response Data:', responseData.msg);
 
-    } catch (error) {
-        console.error('Error:', error);
-        console.log('Error submitting data');
-    }
-}
+//     } catch (error) {
+//         console.error('Error:', error);
+//         console.log('Error submitting data');
+//     }
+// }
 
 const wrapper = document.querySelector(".carousel-wrapper");
 const carousel = document.querySelector(".carousel");
