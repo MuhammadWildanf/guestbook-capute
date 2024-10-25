@@ -30,7 +30,7 @@ document.getElementById("next").addEventListener('click', e => {
 
 async function submit(name, email, company, char, comment) {
     try {
-        const response = await fetch('http://localhost:3001/submit-form', {
+        const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/submit-form', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
