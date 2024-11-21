@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Server running in port:${PORT}`);
 });
