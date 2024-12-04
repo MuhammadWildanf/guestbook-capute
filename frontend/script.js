@@ -32,24 +32,32 @@ async function submit(name, email, char, comment) {
         const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/submit-form', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, email, char, comment })
+            body: JSON.stringify({ name, email, char, comment }),
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            // Parsing error message dari server jika ada
+            const errorMessage = await response.text(); // Bisa gunakan response.json() jika server mengembalikan JSON
+            throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorMessage}`);
         }
 
         const responseData = await response.json();
-        key = responseData.key
         console.log('Response Data:', responseData.key);
 
     } catch (error) {
-        console.error('Error:', error);
-        console.log('Error submitting data');
+        // Tampilkan detail error
+        if (error instanceof SyntaxError) {
+            console.error('Syntax error: Response mungkin bukan JSON', error.message);
+        } else {
+            console.error('Error Details:', error);
+        }
+
+        console.log('Error submitting data:', error.message || error);
     }
 }
+
 
 // async function updateData(key, name, email, char, comment) {
 //     try {
