@@ -2,7 +2,6 @@ document.getElementById("next").addEventListener('click', e => {
     e.preventDefault()
     var name = document.getElementById("name").value
     var email = document.getElementById("email").value
-    var company = document.getElementById("company").value
     var comment = document.getElementById("comment").value
 
     console.log(name, email, comment)
@@ -23,19 +22,19 @@ document.getElementById("next").addEventListener('click', e => {
             text: "Data Submitted Successfully"
         });
 
-        submit(name, email, company, char, comment)
+        submit(name, email, char, comment)
     }
 
 })
 
-async function submit(name, email, company, char, comment) {
+async function submit(name, email, char, comment) {
     try {
         const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/submit-form', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, company, char, comment })
+            body: JSON.stringify({ name, email, char, comment })
         });
 
         if (!response.ok) {
@@ -52,14 +51,14 @@ async function submit(name, email, company, char, comment) {
     }
 }
 
-// async function updateData(key, name, email, company, char, comment) {
+// async function updateData(key, name, email, char, comment) {
 //     try {
 //         const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/update-form', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json'
 //             },
-//             body: JSON.stringify({ key, name, email, company, char, comment })
+//             body: JSON.stringify({ key, name, email, char, comment })
 //         });
 
 //         if (!response.ok) {

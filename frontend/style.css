@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url("bg.png");
+  /* background-image: url("bg.png"); */
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -24,9 +24,9 @@ body {
   margin-bottom: 20px;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   #hero {
-    max-height: 120px; 
+    max-height: 120px;
     width: auto;
   }
 
@@ -37,7 +37,7 @@ body {
 
 @media (min-width: 769px) and (max-width: 1024px) {
   #hero {
-    max-height: 150px; 
+    max-height: 150px;
     width: auto;
   }
 
