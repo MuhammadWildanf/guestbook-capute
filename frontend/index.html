@@ -24,15 +24,21 @@
 </head>
 
 <body>
+
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="BGApp.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="wrapper d-flex align-items-center">
     <div class="container d-flex justify-content-center" id="hero-container">
-      <img src="favicon.png" alt="Logo" class="img-fluid" id="hero" />
+      <img src="LOGOS.png" alt="Logo" class="img-fluid" id="hero" />
     </div>
     <div class="container">
       <div class="p1" id="p1" style="display: block">
         <form class="mt-2" id="identity" action="" method="get">
           <div class="pg1" id="pg1" style="display: block">
-            <div class="grey-box bg-dark p-4" style="border-radius: 10px">
+            <div class="grey-box p-4" style="border-radius: 10px; background-color: #F5AF47; border: 4px solid black;">
               <div class="mb-4">
                 <input type="text" class="form-control" id="name" name="name" maxlength="20" autocomplete="on"
                   placeholder="Name" />
@@ -48,96 +54,51 @@
             </div>
 
           </div>
+          <div class="custom-card mt-3">
+            <div class="d-flex justify-content-center">
 
-          <div class="d-flex justify-content-center mt-3">
-            <div class="card grey-box bg-dark p-1">
-              <div class="card-body">
-                <div class="tulisan-karakter justify-content-center">
-                  <span
-                    style="text-align: center; color: white; font-weight: 500; width: 170px; height: 10px"><strong>Choose
-                      Your Character</strong></span>
-                </div>
+              <div class="tulisan-karakter justify-content-center">
+                <span
+                  style="text-align: center; color: #2F3690; font-weight: 500; width: 170px; height: 10px"><strong>Select
+                    Your Character</strong></span>
               </div>
             </div>
-          </div>
-
-
-          <div class="carousel-container mb-4">
-            <div class="carousel-wrapper">
-              <i id="left" class="fa-solid fa-angle-left"></i>
-              <ul class="carousel">
-                <li class="card">
-                  <div class="img"><img src="images/1.png" alt="char1" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/2.png" alt="char2" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/3.png" alt="char3" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/4.png" alt="char4" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/5.png" alt="char5" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/6.png" alt="char6" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/7.png" alt="char7" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/8.png" alt="char8" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/9.png" alt="char9" draggable="false" /></div>
-                </li>
-                <li class="card">
-                  <div class="img"><img src="images/10.png" alt="char10" draggable="false" /></div>
-                </li>
-              </ul>
-              <i id="right" class="fa-solid fa-angle-right"></i>
+            <div class="carousel-container mb-4">
+              <div class="carousel-wrapper">
+                <i id="left" class="fa-solid fa-angle-left text-white bg-danger"></i>
+                <ul class="carousel">
+                  <li class="card">
+                    <div class="img"><img src="karakter/1.png" alt="char1" draggable="false" /></div>
+                  </li>
+                  <li class="card">
+                    <div class="img"><img src="karakter/2.png" alt="char2" draggable="false" /></div>
+                  </li>
+                  <li class="card">
+                    <div class="img"><img src="karakter/3.png" alt="char3" draggable="false" /></div>
+                  </li>
+                  <li class="card">
+                    <div class="img"><img src="karakter/4.png" alt="char4" draggable="false" /></div>
+                  </li>
+                </ul>
+                <i id="right" class="fa-solid fa-angle-right text-white bg-danger"></i>
+              </div>
+            </div>
+            <div class="button d-flex justify-content-center">
+              <button id="next" class="btn btn-danger text-white"
+                style="width: 150px; height: 50px; border: 3px solid black;"><strong>SUBMIT</strong></button>
             </div>
           </div>
-          <div class="button d-flex justify-content-center mb-4">
-            <button id="next" class="btn btn-dark" style="width: 150px; height: 50px"><strong>Next</strong></button>
-          </div>
       </div>
-      <!-- <div class="pg2" id="pg2" style="display: none">
-        <div class="mb-3 bg-dark p-3 pb-4" style="border-radius: 10px">
-          <label for="comment" class="form-label text-light">Your Opinion</label>
-          <textarea class="form-control" id="comment" rows="3"></textarea>
-        </div>
-        <div class="button d-flex justify-content-center">
-          <button id="submit" class="btn btn-dark" style="width: 150px; height: 50px">Submit</button>
-        </div>
-      </div> -->
       </form>
     </div>
     <div class="p2 justify-content-center align-items-center" id="p2" style="display: none; margin-top: 150px">
       <div class="card bg-dark text-light p-4" style="width: 24rem;">
-        <h1 class="card-title text-center" style="font-weight: 800; font-size: 35px;">Thank you for visiting our booth!
+        <h1 class="card-title text-center" style="font-weight: 800; font-size: 35px;">Thank you for visiting!
         </h1>
-        <div class="card-body text-center mt-3">
-          <p style="font-size: 15px;">
-            <strong>
-              For further information, you can visit us at:
-              <br>
-              <a href="https://www.imajiwa.id" class="text-light" style="text-decoration: none;">
-                <box-icon name='link-alt' color="#ffffff" size="xs"></box-icon> imajiwa.id
-              </a>
-              <br>
-              <a href="https://www.argovisual.net" class="text-light" style="text-decoration: none;">
-                <box-icon name='link-alt' color="#ffffff" size="xs"></box-icon> argovisual.net
-              </a>
-            </strong>
-          </p>
-        </div>
       </div>
     </div>
   </div>
-  </div>
+
 </body>
 
 </html>
