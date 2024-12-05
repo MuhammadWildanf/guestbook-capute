@@ -24,28 +24,23 @@
 </head>
 
 <body>
-
-  <div class="video-background">
-    <video autoplay muted loop playsinline>
-      <source src="BGApp.mp4" type="video/mp4" />
-    </video>
-  </div>
+  <svg id="wave-container" xmlns="http://www.w3.org/2000/svg"></svg>
   <div class="wrapper d-flex align-items-center">
     <div class="container d-flex justify-content-center" id="hero-container">
-      <img src="LOGOS.png" alt="Logo" class="img-fluid" id="hero" />
+      <img src="LOGOS.png" alt="Logo" class="img-fluid mt-3 mb-3" id="hero" style="transform: scale(1.5);" />
     </div>
-    <div class="container">
+    <div class="container mt-3">
       <div class="p1" id="p1" style="display: block">
         <form class="mt-2" id="identity" action="" method="get">
           <div class="pg1" id="pg1" style="display: block">
             <div class="grey-box p-4" style="border-radius: 10px; background-color: #F5AF47; border: 4px solid black;">
               <div class="mb-4">
                 <input type="text" class="form-control" id="name" name="name" maxlength="15" autocomplete="on"
-                  placeholder="Name" />
+                  placeholder="Nama" />
               </div>
               <div class="mb-4">
                 <input type="email" class="form-control" id="email" name="email" autocomplete="on"
-                  placeholder="Email Address" />
+                  placeholder="Alamat Email" />
               </div>
               <div class="mb-0">
                 <textarea type="text" class="form-control" id="comment" maxlength="80" name="comment" autocomplete="on"
@@ -54,13 +49,12 @@
             </div>
 
           </div>
-          <div class="custom-card mt-3">
+          <div class="mt-3">
             <div class="d-flex justify-content-center">
 
               <div class="tulisan-karakter justify-content-center">
                 <span
-                  style="text-align: center; color: #2F3690; font-weight: 500; width: 170px; height: 10px"><strong>Select
-                    Your Character</strong></span>
+                  style="text-align: center; color: white; font-weight: 500; width: 170px; height: 10px"><strong>PILIH KARAKTERMU</strong></span>
               </div>
             </div>
             <div class="carousel-container mb-4">
@@ -85,16 +79,15 @@
             </div>
             <div class="button d-flex justify-content-center">
               <button id="next" class="btn btn-danger text-white"
-                style="width: 150px; height: 50px; border: 3px solid black;"><strong>SUBMIT</strong></button>
+                style="width: 150px; height: 50px; border: 3px solid black;"><strong>MASUK</strong></button>
             </div>
           </div>
       </div>
       </form>
     </div>
-    <div class="p2 justify-content-center align-items-center" id="p2" style="display: none; margin-top: 150px">
-      <div class="card bg-dark text-light p-4" style="width: 24rem;">
-        <h1 class="card-title text-center" style="font-weight: 800; font-size: 35px;">Thank you for visiting!
-        </h1>
+    <div class="p2 align-items-center" id="p2" style="display: none; margin-top: 150px">
+      <div class="card text-light p-4" id="thank" style="background-color: #F5AF47; border: 4px solid black;">
+        <h1 class="card-title text-center" style="font-weight: 800; font-size: 35px;">Terimakasih Atas Partisipasinya!</h1>
       </div>
     </div>
   </div>
