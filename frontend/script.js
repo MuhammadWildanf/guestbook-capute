@@ -31,7 +31,7 @@ document.getElementById("next").addEventListener("click", (e) => {
 async function submit(name, email, char, comment) {
   try {
     const response = await fetch(
-      "https://bni-wondrx.vercel.app/submit-form",
+      "http://localhost:3002/submit-form",
       {
         method: "POST",
         headers: {

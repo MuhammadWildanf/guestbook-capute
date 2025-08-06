@@ -36,7 +36,6 @@ app.post('/submit-form', async (req, res) => {
     const ref = db.ref('testguest');
     const newRef = await ref.push({ name, email, char, comment, timestamp })
     const newKey = newRef.key
-    console.log("Data successfully saved with key:", newKey);
     res.status(200).json({ key: newKey, name, char });
   } catch (error) {
     console.error('Error submitting data:', error);
