@@ -6,7 +6,9 @@
 
 body {
   /* background-image: url("bg.png"); */
-  background-color: #008b72;
+  position: relative;
+  z-index: 0;
+  background-color: #eaed88;
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
@@ -14,6 +16,70 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+}
+
+.background-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-bottom: -30px;
+  width: 100%;
+  height: 760px;
+  background-image: url("bg-bni.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.form-group-floating {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.form-control {
+  height: 56px;
+  padding: 16px 20px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #ff7c00;
+  box-shadow: 0 0 0 0.2rem rgba(255, 124, 0, 0.25);
+  outline: none;
+}
+
+.form-label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+  top: -1px;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #ff7c00;
+  padding: 0 8px;
+  border-radius: 20px;
+  border: 1px solid #ff7c00;
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 56px;
+  resize: vertical;
 }
 
 svg {
@@ -52,7 +118,7 @@ svg {
   /* Warna kuning pucat */
   border-radius: 20px;
   /* Radius sudut */
-  border: 4px solid #FFFFFF;
+  border: 4px solid #ffffff;
   /* Garis tipis */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   /* Bayangan lembut */
@@ -60,8 +126,32 @@ svg {
   /* Jarak konten ke tepi */
 }
 
+.custom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #00c5f1 0%, #00718a 81%);
+  color: white;
+  width: 246px;
+  /* Lebar sesuai permintaan */
+  height: 54px;
+  /* Tinggi sesuai permintaan */
+  border: none;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 10px 25px rgba(128, 85, 254, 0.4);
+  transition: all 0.3s ease;
+}
+
 #hero {
   max-height: 170px;
+  width: auto;
+}
+
+.logo-kecil {
+  max-height: 20px;
+  height: auto;
   width: auto;
 }
 
@@ -72,8 +162,6 @@ svg {
 #thank {
   max-width: 500px;
 }
-
-
 
 @media (max-width: 768px) {
   #hero {
@@ -149,11 +237,12 @@ svg {
   position: absolute;
   text-align: center;
   line-height: 50px;
-  background: #fff;
+  background: transparent; /* transparan */
+  border: 2px solid #fff; /* warna pinggir */
+  color: #fff; /* warna ikon panah */
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
   transform: translateY(-50%);
-  transition: transform 0.1s linear;
+  transition: transform 0.1s linear, background 0.2s;
   z-index: 2;
 }
 
