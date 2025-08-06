@@ -66,7 +66,7 @@ document.getElementById("next").addEventListener("click", (e) => {
 async function submit(name, email, char, comment) {
   try {
     const response = await fetch(
-      "https://qris-art-and-culinary.vercel.app/submit-form",
+      "https://bni-wondrx.vercel.app/submit-form",
       {
         method: "POST",
         headers: {
