@@ -1,29 +1,3 @@
-let blacklist = [];
-
-async function loadBlacklist() {
-  const url = "https://drive.google.com/uc?export=download&id=1qFUcIoZ7VxZ9asymyiwsof7TO892OX4G";
-
-  try {
-    const response = await fetch(url);
-    const text = await response.text();
-
-    // Asumsikan isi file 1 kata per baris
-    blacklist = text
-      .split('\n')
-      .map(word => word.trim().toLowerCase())
-      .filter(Boolean);
-
-    console.log("Blacklist loaded:", blacklist);
-  } catch (err) {
-    console.error("Gagal memuat blacklist:", err);
-  }
-}
-
-function containsHateSpeech(text) {
-  const pattern = new RegExp(`\\b(${blacklist.join("|")})\\b`, "i");
-  return pattern.test(text.toLowerCase());
-}
-
 document.getElementById("next").addEventListener("click", (e) => {
   e.preventDefault();
   var name = document.getElementById("name").value;
@@ -38,15 +12,6 @@ document.getElementById("next").addEventListener("click", (e) => {
       title: "Oops...",
       text: "Isi semua kolom terlebih dahulu!",
     });
-  }
-
-  if (containsHateSpeech(comment)) {
-    Swal.fire({
-      icon: "warning",
-      title: "Komentar Tidak Diperbolehkan",
-      text: "Komentar mengandung kata tidak pantas",
-    });
-    return;
   }
 
   document.getElementById("p2").style.display = "block";
@@ -124,6 +89,7 @@ function showThankYouScreen(data) {
   p2.style.flexDirection = 'column';
   p2.style.alignItems = 'center';
 }
+
 
 
 // const svg = document.getElementById("wave-container");
