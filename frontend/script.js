@@ -13,6 +13,34 @@ document.getElementById("next").addEventListener("click", async (e) => {
     return;
   }
 
+  let badwords = [];
+  try {
+    const res = await fetch("/badwords");
+    badwords = await res.json();
+    console.log("Badwords:", badwords);
+
+  } catch (error) {
+    console.error("Gagal memuat data.json", error);
+  }
+
+  function normalizeRepeatedChars(text) {
+    return text.replace(/(.)\1{2,}/g, "$1");
+  }
+
+  let allText = `${name} ${comment}`.toLowerCase();
+  allText = normalizeRepeatedChars(allText);
+
+  // Cek apakah ada kata yang terlarang
+  const foundBadword = badwords.find((word) => allText.includes(word));
+  if (foundBadword) {
+    Swal.fire({
+      icon: "error",
+      title: "Kata Tidak Pantas Ditemukan!",
+      text: 'Teks mengandung kata yang tidak pantas',
+    });
+    return;
+  }
+
   document.getElementById("p2").style.display = "block";
   document.getElementById("p1").style.display = "none";
 
@@ -29,7 +57,8 @@ document.getElementById("next").addEventListener("click", async (e) => {
 
 async function submit(name, email, char, comment) {
   try {
-    const response = await fetch("https://bni-wondrx.vercel.app/submit-form", {
+    // const response = await fetch("https://bni-wondrx.vercel.app/submit-form", {
+    const response = await fetch("http://localhost:3002/submit-form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
