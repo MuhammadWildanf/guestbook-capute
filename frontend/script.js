@@ -1,17 +1,16 @@
-document.getElementById("next").addEventListener("click", (e) => {
+document.getElementById("next").addEventListener("click", async (e) => {
   e.preventDefault();
-  var name = document.getElementById("name").value;
-  var email = document.getElementById("email").value;
-  var comment = document.getElementById("comment").value;
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const comment = document.getElementById("comment").value.trim();
 
-  console.log(name, email, comment);
-
-  if (name == "" || email == "" || comment == "") {
+  if (!name || !email || !comment) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "Isi semua kolom terlebih dahulu!",
     });
+    return;
   }
 
   document.getElementById("p2").style.display = "block";
@@ -25,21 +24,18 @@ document.getElementById("next").addEventListener("click", (e) => {
     showThankYouScreen({ name, char });
   });
 
-  submit(name, email, char, comment);
+  await submit(name, email, char, comment);
 });
 
 async function submit(name, email, char, comment) {
   try {
-    const response = await fetch(
-      "http://localhost:3002/submit-form",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, char, comment }),
-      }
-    );
+    const response = await fetch("http://localhost:3002/submit-form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, char, comment }),
+    });
 
     if (!response.ok) {
       const errorMessage = await response.text();
@@ -51,11 +47,7 @@ async function submit(name, email, char, comment) {
     const responseData = await response.json();
     console.log("Response Data:", responseData);
 
-    // Pastikan name dan char dikirim manual jika API tidak mengembalikan dengan lengkap
-    showThankYouScreen({
-      name: name,
-      char: char
-    });
+    showThankYouScreen({ name, char });
 
   } catch (error) {
     console.error("Error submitting data:", error.message || error);
