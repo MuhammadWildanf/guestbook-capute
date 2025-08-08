@@ -1,10 +1,9 @@
 document.getElementById("next").addEventListener("click", async (e) => {
   e.preventDefault();
   const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
   const comment = document.getElementById("comment").value.trim();
 
-  if (!name || !email || !comment) {
+  if (!name || !comment) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -52,10 +51,10 @@ document.getElementById("next").addEventListener("click", async (e) => {
     showThankYouScreen({ name, char });
   });
 
-  await submit(name, email, char, comment);
+  await submit(name, char, comment);
 });
 
-async function submit(name, email, char, comment) {
+async function submit(name, char, comment) {
   try {
     const response = await fetch("https://bni-wondrx.vercel.app/submit-form", {
       // const response = await fetch("http://localhost:3002/submit-form", {
@@ -63,7 +62,7 @@ async function submit(name, email, char, comment) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, char, comment }),
+      body: JSON.stringify({ name, char, comment }),
     });
 
     if (!response.ok) {
