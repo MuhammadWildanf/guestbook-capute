@@ -23,7 +23,14 @@ document.getElementById("next").addEventListener("click", async (e) => {
   }
 
   function normalizeRepeatedChars(text) {
-    return text.replace(/(.)\1{2,}/g, "$1");
+    return text
+      .toLowerCase()
+      .replace(/(.)\1{2,}/g, "$1")       // huruf berulang
+      .replace(/[@4]/g, "a")             // simbol/angka ke huruf
+      .replace(/[$5]/g, "s")
+      .replace(/[!1]/g, "i")
+      .replace(/[0]/g, "o")
+      .replace(/[^a-z0-9\s]/g, "");       // hapus simbol lain
   }
 
   let allText = `${name} ${comment}`.toLowerCase();
@@ -33,12 +40,13 @@ document.getElementById("next").addEventListener("click", async (e) => {
   const foundBadword = badwords.find((word) => allText.includes(word));
   if (foundBadword) {
     Swal.fire({
-      icon: "error",
-      title: "Kata Tidak Pantas Ditemukan!",
-      text: 'Teks mengandung kata yang tidak pantas',
+      icon: "warning",
+      title: "Ups...",
+      text: "Teks Anda mengandung kata yang tidak diperbolehkan. Silakan perbaiki sebelum melanjutkan.",
     });
     return;
   }
+
 
   document.getElementById("p2").style.display = "block";
   document.getElementById("p1").style.display = "none";
