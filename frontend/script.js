@@ -25,24 +25,28 @@ document.getElementById("next").addEventListener("click", async (e) => {
   function normalizeRepeatedChars(text) {
     return text
       .toLowerCase()
-      .replace(/(.)\1{2,}/g, "$1")       // huruf berulang
-      .replace(/[@4]/g, "a")             // simbol/angka ke huruf
+      .replace(/(.)\1+/g, "$1")      // huruf berulang 2x+
+      .replace(/[@4]/g, "a")
       .replace(/[$5]/g, "s")
       .replace(/[!1]/g, "i")
       .replace(/[0]/g, "o")
-      .replace(/[^a-z0-9\s]/g, "");       // hapus simbol lain
+      .replace(/[3]/g, "e")
+      .replace(/[7]/g, "t")
+      .replace(/[9]/g, "g")
+      .replace(/[^a-z0-9\s]/g, "")   // hapus simbol lain
+      .replace(/\s+/g, "");          // hapus semua spasi
   }
 
   let allText = `${name} ${comment}`.toLowerCase();
   allText = normalizeRepeatedChars(allText);
 
   // Cek apakah ada kata yang terlarang
-  const foundBadword = badwords.find((word) => allText.includes(word));
+  const foundBadword = badwords.some((word) => allText.includes(word));
   if (foundBadword) {
     Swal.fire({
       icon: "warning",
-      title: "Ups...",
-      text: "Teks Anda mengandung kata yang tidak diperbolehkan. Silakan perbaiki sebelum melanjutkan.",
+      title: "Perhatian",
+      text: "Input Anda mengandung kata yang tidak sesuai kebijakan. Mohon ubah sebelum melanjutkan.",
     });
     return;
   }
@@ -52,12 +56,42 @@ document.getElementById("next").addEventListener("click", async (e) => {
   document.getElementById("p1").style.display = "none";
 
   Swal.fire({
-    icon: "info",
-    title: "Success",
-    text: "Data Submitted Successfully",
-  }).then(() => {
-    showThankYouScreen({ name, char });
+    html: `
+    <div style="
+      background-color: #f0f28c;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    ">
+      <div style="
+        background-color: #ff8c00;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+      ">
+        <i class="fa-solid fa-check" style="color: #fff; font-size: 14px;"></i>
+      </div>
+      <div style="color: #00796B; font-size: 1.5rem; font-weight: bold;">
+        Berhasil
+      </div>
+    </div>
+  `,
+    showConfirmButton: false,
+    background: 'transparent',
+    timer: 1500,
+    customClass: {
+      popup: 'no-border-shadow'
+    }
   });
+
+
+
 
   await submit(name, char, comment);
 });
@@ -117,8 +151,6 @@ function showThankYouScreen(data) {
   p2.style.flexDirection = 'column';
   p2.style.alignItems = 'center';
 }
-
-
 
 // const svg = document.getElementById("wave-container");
 // let width = window.innerWidth;
