@@ -1,5 +1,9 @@
+let isSubmitting = false;
+
 document.getElementById("next").addEventListener("click", async (e) => {
   e.preventDefault();
+  if (isSubmitting) return;
+  const btnNext = document.getElementById("next");
   const name = document.getElementById("name").value.trim();
   const comment = document.getElementById("comment").value.trim();
 
@@ -17,7 +21,6 @@ document.getElementById("next").addEventListener("click", async (e) => {
     const res = await fetch("/badwords");
     badwords = await res.json();
     console.log("Badwords:", badwords);
-
   } catch (error) {
     console.error("Gagal memuat data.json", error);
   }
@@ -25,7 +28,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
   function normalizeRepeatedChars(text) {
     return text
       .toLowerCase()
-      .replace(/(.)\1+/g, "$1")      // huruf berulang 2x+
+      .replace(/(.)\1+/g, "$1") // huruf berulang 2x+
       .replace(/[@4]/g, "a")
       .replace(/[$5]/g, "s")
       .replace(/[!1]/g, "i")
@@ -33,8 +36,8 @@ document.getElementById("next").addEventListener("click", async (e) => {
       .replace(/[3]/g, "e")
       .replace(/[7]/g, "t")
       .replace(/[9]/g, "g")
-      .replace(/[^a-z0-9\s]/g, "")   // hapus simbol lain
-      .replace(/\s+/g, "");          // hapus semua spasi
+      .replace(/[^a-z0-9\s]/g, "") // hapus simbol lain
+      .replace(/\s+/g, ""); // hapus semua spasi
   }
 
   let allText = `${name} ${comment}`.toLowerCase();
@@ -51,6 +54,9 @@ document.getElementById("next").addEventListener("click", async (e) => {
     return;
   }
 
+  isSubmitting = true;
+  btnNext.disabled = true;
+  btnNext.textContent = "Memproses...";
 
   document.getElementById("p2").style.display = "block";
   document.getElementById("p1").style.display = "none";
@@ -83,17 +89,21 @@ document.getElementById("next").addEventListener("click", async (e) => {
     </div>
   `,
     showConfirmButton: false,
-    background: 'transparent',
+    background: "transparent",
     timer: 1500,
     customClass: {
-      popup: 'no-border-shadow'
-    }
+      popup: "no-border-shadow",
+    },
   });
 
-
-
-
-  await submit(name, char, comment);
+  try {
+    await submit(name, char, comment);
+  } finally {
+    // Setelah selesai, bisa diaktifkan lagi kalau mau
+    isSubmitting = false;
+    btnNext.disabled = false;
+    btnNext.textContent = "MASUK";
+  }
 });
 
 async function submit(name, char, comment) {
@@ -118,38 +128,36 @@ async function submit(name, char, comment) {
     console.log("Response Data:", responseData);
 
     showThankYouScreen({ name, char });
-
   } catch (error) {
     console.error("Error submitting data:", error.message || error);
   }
 }
-
 
 function showThankYouScreen(data) {
   const { name, char } = data;
 
   // Tampilkan gambar karakter
   const imageUrl = `/images/${char}.png`;
-  const charImg = document.createElement('img');
+  const charImg = document.createElement("img");
   charImg.src = imageUrl;
   charImg.alt = char;
-  charImg.style.width = '400px';
-  charImg.style.display = 'block';
-  charImg.style.margin = '0 auto 20px';
+  charImg.style.width = "400px";
+  charImg.style.display = "block";
+  charImg.style.margin = "0 auto 20px";
 
-  const charContainer = document.getElementById('char-container');
-  charContainer.innerHTML = '';
+  const charContainer = document.getElementById("char-container");
+  charContainer.innerHTML = "";
   charContainer.appendChild(charImg);
 
   // Set nama user di tengah
-  const userName = document.getElementById('user-name');
+  const userName = document.getElementById("user-name");
   userName.textContent = name;
 
   // Tampilkan layar
-  const p2 = document.getElementById('p2');
-  p2.style.display = 'flex';
-  p2.style.flexDirection = 'column';
-  p2.style.alignItems = 'center';
+  const p2 = document.getElementById("p2");
+  p2.style.display = "flex";
+  p2.style.flexDirection = "column";
+  p2.style.alignItems = "center";
 }
 
 // const svg = document.getElementById("wave-container");
@@ -265,7 +273,7 @@ carousel.classList.remove("no-transition");
 const updateChar = () => {
   char =
     Math.round(carousel.scrollLeft / firstCardWidth) %
-    carouselChildrens.length || carouselChildrens.length;
+      carouselChildrens.length || carouselChildrens.length;
   console.log("Current char after scroll/drag:", char);
 };
 
