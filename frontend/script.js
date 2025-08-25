@@ -64,7 +64,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
   Swal.fire({
     html: `
     <div style="
-      background-color: #f0f28c;
+      background-color: #ffff;
       border-radius: 12px;
       padding: 20px;
       display: flex;
@@ -72,7 +72,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
       align-items: center;
     ">
       <div style="
-        background-color: #ff8c00;
+        background-color: #1c8263;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -83,7 +83,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
       ">
         <i class="fa-solid fa-check" style="color: #fff; font-size: 14px;"></i>
       </div>
-      <div style="color: #00796B; font-size: 1.5rem; font-weight: bold;">
+      <div style="font-size: 1.5rem; font-weight: bold;">
         Berhasil
       </div>
     </div>
@@ -137,8 +137,8 @@ function showThankYouScreen(data) {
   const { name, char } = data;
 
   // Tampilkan gambar karakter
-  const imageUrl = `/images/${char}.png`;
-  const charImg = document.createElement("img");
+  const imageUrl = `/char/${char}.png`;
+  const charImg = document.createElement('img');
   charImg.src = imageUrl;
   charImg.alt = char;
   charImg.style.width = "400px";
@@ -273,7 +273,7 @@ carousel.classList.remove("no-transition");
 const updateChar = () => {
   char =
     Math.round(carousel.scrollLeft / firstCardWidth) %
-      carouselChildrens.length || carouselChildrens.length;
+    carouselChildrens.length || carouselChildrens.length;
   console.log("Current char after scroll/drag:", char);
 };
 

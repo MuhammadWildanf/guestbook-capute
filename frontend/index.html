@@ -20,25 +20,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.png" type="image/png" />
-  <title>BNI WONDRX 2025</title>
+  <title>GREEN SUMMIT 2025</title>
 </head>
 
 <body>
   <div class="wrapper d-flex align-items-center">
-    <div class="container mb-4">
-      <div class="row px-4 justify-content-between align-items-center">
-        <div class="col-auto">
-          <img src="hut.png" alt="Logo Kiri" class="img-fluid logo-kecil">
-          <img src="danantara.png" alt="Logo Kiri" class="img-fluid logo-kecil">
-        </div>
-        <div class="col-auto">
-          <img src="bni.png" alt="Logo Kanan" class="img-fluid logo-kecil">
-        </div>
-      </div>
-    </div>
     <div class="container mb-5">
       <div class="row px-4 justify-content-center" id="hero-container">
-        <img src="bni-wonderx.png" alt="Logo" class="img-fluid " id="hero" />
+        <img src="logo-green-summit.png" alt="Logo" class="img-fluid " id="hero" />
       </div>
     </div>
     <div class="container d-flex justify-content-center mt-2">
@@ -46,27 +35,18 @@
         <form id="identity" action="" method="get">
           <div class="pg1" id="pg1" style="display: block">
             <div class="grey-box">
-              <div class="form-group-floating">
-                <input type="text" id="name" name="name" class="form-control" placeholder=" " maxlength="15" />
-                <label for="name" class="form-label">Nama</label>
+              <div class="form-group mb-3">
+                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Masukkan Nama"
+                  maxlength="15">
               </div>
-             
-              <!-- Textarea Komentar -->
-              <div class="form-group-floating">
-                <textarea id="comment" name="comment" class="form-control" placeholder=" " maxlength="80"></textarea>
-                <label for="comment" class="form-label">Tulis komentar anda disini</label>
+              <div class="form-group mb-3">
+                <textarea class="form-control" name="comment" id="comment" rows="3" maxlength="80"
+                  placeholder="Tulis Testimoni anda di sini "></textarea>
               </div>
-
             </div>
             <div class="d-flex justify-content-center">
               <div class="tulisan-karakter">
-                <div class="px-4 py-2 text-white" style="
-          background-color: #FF7C00;
-          border-radius: 20px;
-          font-size: 16px;
-          color: #454545;
-          position: relative;
-        ">
+                <div class="px-4 py-2 text-white" style="background-color: #1c8263; border-radius: 63px; font-size: 16px; color: #ffff; position: relative; border: 2.5px solid #fff;">
                   PILIH KARAKTERMU
                 </div>
               </div>
@@ -76,28 +56,28 @@
                 <i id="left" class="fa-solid fa-angle-left text-white"></i>
                 <ul class="carousel">
                   <li class="card">
-                    <div class="img"><img src="images/1.png" alt="char1" draggable="false" /></div>
+                    <div class="img"><img src="char/1.png" alt="char1" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/2.png" alt="char2" draggable="false" /></div>
+                    <div class="img"><img src="char/2.png" alt="char2" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/3.png" alt="char3" draggable="false" /></div>
+                    <div class="img"><img src="char/3.png" alt="char3" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/4.png" alt="char4" draggable="false" /></div>
+                    <div class="img"><img src="char/4.png" alt="char4" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/5.png" alt="char4" draggable="false" /></div>
+                    <div class="img"><img src="char/5.png" alt="char4" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/6.png" alt="char4" draggable="false" /></div>
+                    <div class="img"><img src="char/6.png" alt="char4" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/7.png" alt="char4" draggable="false" /></div>
+                    <div class="img"><img src="char/7.png" alt="char4" draggable="false" /></div>
                   </li>
                   <li class="card">
-                    <div class="img"><img src="images/8.png" alt="char4" draggable="false" /></div>
+                    <div class="img"><img src="char/8.png" alt="char4" draggable="false" /></div>
                   </li>
                 </ul>
                 <i id="right" class="fa-solid fa-angle-right text-white"></i>
@@ -111,10 +91,10 @@
       </div>
       <div class="p2" id="p2" style="display: none;">
         <div id="char-container"></div>
-        <div class="card text-light p-4 text-center" id="thank" style="background-color: #FF7C00; border-radius: 20px;">
-          <h1 class="card-title mb-0" style="font-size: 25px; color: #EAED88;">Terimakasih</h1>
+        <div class="card text-light p-4 text-center" id="thank" style="background-color: #1c8263; border-radius: 20px;">
+          <h1 class="card-title mb-0" style="font-size: 25px;">Terimakasih</h1>
           <h2 id="user-name" class="my-2" style="font-size: 30px; font-weight: bold;"></h2>
-          <h1 class="card-title mt-0" style="font-size: 25px; color: #EAED88;">Atas Partisipasinya!</h1>
+          <h1 class="card-title mt-0" style="font-size: 25px;">Atas Partisipasinya!</h1>
         </div>
       </div>
     </div>
