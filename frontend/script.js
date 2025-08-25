@@ -108,7 +108,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
 
 async function submit(name, char, comment) {
   try {
-    const response = await fetch("https://bni-wondrx.vercel.app/submit-form", {
+    const response = await fetch("https://green-summit.vercel.app/submit-form", {
       // const response = await fetch("http://localhost:3002/submit-form", {
       method: "POST",
       headers: {
