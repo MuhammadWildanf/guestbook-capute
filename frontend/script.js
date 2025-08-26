@@ -28,7 +28,7 @@ document.getElementById("next").addEventListener("click", async (e) => {
   function normalizeRepeatedChars(text) {
     return text
       .toLowerCase()
-      .replace(/(.)\1+/g, "$1") // huruf berulang 2x+
+      .replace(/(.)\1+/g, "$1$1") // huruf berulang 2x+
       .replace(/[@4]/g, "a")
       .replace(/[$5]/g, "s")
       .replace(/[!1]/g, "i")
@@ -44,15 +44,15 @@ document.getElementById("next").addEventListener("click", async (e) => {
   allText = normalizeRepeatedChars(allText);
 
   // Cek apakah ada kata yang terlarang
-  const foundBadword = badwords.some((word) => allText.includes(word));
-  if (foundBadword) {
-    Swal.fire({
-      icon: "warning",
-      title: "Perhatian",
-      text: "Input Anda mengandung kata yang tidak sesuai kebijakan. Mohon ubah sebelum melanjutkan.",
-    });
-    return;
-  }
+  /*  const foundBadword = badwords.some((word) => allText.includes(word));
+   if (foundBadword) {
+     Swal.fire({
+       icon: "warning",
+       title: "Perhatian",
+       text: "Input Anda mengandung kata yang tidak sesuai kebijakan. Mohon ubah sebelum melanjutkan.",
+     });
+     return;
+   } */
 
   isSubmitting = true;
   btnNext.disabled = true;
