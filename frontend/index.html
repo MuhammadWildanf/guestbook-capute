@@ -43,45 +43,14 @@
                 <textarea class="form-control" name="comment" id="comment" rows="3" maxlength="80"
                   placeholder="Tulis Testimoni anda di sini "></textarea>
               </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <div class="tulisan-karakter">
-                <div class="px-4 py-2 text-white" style="background-color: #1c8263; border-radius: 63px; font-size: 16px; color: #ffff; position: relative; border: 2.5px solid #fff;">
-                  PILIH KARAKTERMU
-                </div>
+              <div class="mb-3">
+               <video id="video" autoplay playsinline muted width="250" height="200"
+  style="border-radius:10px; background:#000;"></video>
+<canvas id="canvas" width="250" height="200" style="display:none;"></canvas>
+<select id="cameraSelect" class="form-select mt-2"></select>
+<button type="button" id="take-photo" class="btn btn-success mt-2">📸 Ambil Foto</button>
               </div>
-            </div>
-            <div class="carousel-container mb-4">
-              <div class="carousel-wrapper">
-                <i id="left" class="fa-solid fa-angle-left text-white"></i>
-                <ul class="carousel">
-                  <li class="card">
-                    <div class="img"><img src="char/1.png" alt="char1" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/2.png" alt="char2" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/3.png" alt="char3" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/4.png" alt="char4" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/5.png" alt="char4" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/6.png" alt="char4" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/7.png" alt="char4" draggable="false" /></div>
-                  </li>
-                  <li class="card">
-                    <div class="img"><img src="char/8.png" alt="char4" draggable="false" /></div>
-                  </li>
-                </ul>
-                <i id="right" class="fa-solid fa-angle-right text-white"></i>
-              </div>
+
             </div>
             <div class="button d-flex justify-content-center">
               <button id="next" class="custom-btn">MASUK</button>
