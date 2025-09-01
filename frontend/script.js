@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const textarea = document.getElementById("comment");
 
   textarea.addEventListener("input", function () {
-    this.style.height = "auto"; // reset dulu biar bisa mengecil kalau perlu
-    this.style.height = this.scrollHeight + "px"; // set sesuai isi
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
   });
 
   let isSubmitting = false;
@@ -14,17 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("canvas");
   const takePhotoBtn = document.getElementById("take-photo");
   const cameraSelect = document.getElementById("cameraSelect");
+  const photoPreview = document.getElementById("photo-preview");
+  const retakePhotoBtn = document.getElementById("retake-photo");
 
   // --- Load kamera ---
   async function loadCameras() {
     try {
-      // Minta izin kamera dulu tanpa deviceId
       const tempStream = await navigator.mediaDevices.getUserMedia({
         video: true,
       });
       tempStream.getTracks().forEach((track) => track.stop());
 
-      // Ambil daftar device
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = devices.filter((d) => d.kind === "videoinput");
 
@@ -36,11 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         cameraSelect.appendChild(option);
       });
 
-      // Start kamera pertama
       if (videoDevices.length > 0) {
         startCamera(videoDevices[0].deviceId);
       } else {
-        // Kalau tidak ada camera, fallback facingMode
         startCamera(null);
       }
     } catch (err) {
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const constraints = deviceId
         ? { video: { deviceId: { exact: deviceId } } }
-        : { video: { facingMode: "user" } }; // default depan
+        : { video: { facingMode: "user" } };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       video.srcObject = stream;
@@ -97,27 +95,48 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // --- Ganti kamera dari dropdown ---
   cameraSelect.addEventListener("change", (e) => {
     startCamera(e.target.value);
   });
 
-  // --- Capture foto ---
+  // --- Capture foto (mirror & preview) ---
   takePhotoBtn.addEventListener("click", () => {
     if (!currentStream) {
       Swal.fire("Error", "Kamera belum aktif!", "error");
       return;
     }
+    canvas.width = video.videoWidth || 320;
+    canvas.height = video.videoHeight || 240;
     const context = canvas.getContext("2d");
+    context.save();
+    context.translate(canvas.width, 0);
+    context.scale(-1, 1);
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.restore();
 
     canvas.toBlob((blob) => {
       capturedBlob = blob;
+      const url = URL.createObjectURL(blob);
+      photoPreview.src = url;
+      photoPreview.style.display = "block";
+      video.style.display = "none";
+      takePhotoBtn.style.display = "none";
+      cameraSelect.style.display = "none";
+      retakePhotoBtn.style.display = "inline-block";
       Swal.fire("Foto berhasil diambil!", "", "success");
     }, "image/jpeg");
   });
 
-  // --- Submit ---
+  // --- Foto ulang ---
+  retakePhotoBtn.addEventListener("click", () => {
+    photoPreview.style.display = "none";
+    retakePhotoBtn.style.display = "none";
+    video.style.display = "block";
+    takePhotoBtn.style.display = "inline-block";
+    cameraSelect.style.display = "inline-block";
+    capturedBlob = null;
+  });
+
   document.getElementById("next").addEventListener("click", async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -158,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.append("comment", comment);
       formData.append("photo", photoBlob, "camera-photo.jpg");
 
-      // const response = await fetch("http://localhost:3000/submit-form", {
-      const response = await fetch("https://guestbook-capute.vercel.app/submit-form", {
+      // const response = await fetch("https://guestbook-capute.vercel.app/submit-form", {
+      const response = await fetch("http://localhost:3000/submit-form", {
         method: "POST",
         body: formData,
       });
