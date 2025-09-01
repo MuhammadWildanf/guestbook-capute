@@ -44,11 +44,11 @@
                   placeholder="Tulis Testimoni anda di sini "></textarea>
               </div>
               <div class="mb-3">
-               <video id="video" autoplay playsinline muted width="250" height="200"
-  style="border-radius:10px; background:#000;"></video>
-<canvas id="canvas" width="250" height="200" style="display:none;"></canvas>
-<select id="cameraSelect" class="form-select mt-2"></select>
-<button type="button" id="take-photo" class="btn btn-success mt-2">📸 Ambil Foto</button>
+                <video id="video" autoplay playsinline muted width="250" height="200"
+                  style="border-radius:10px; background:#000;"></video>
+                <canvas id="canvas" width="250" height="200" style="display:none;"></canvas>
+                <select id="cameraSelect" class="form-select mt-2"></select>
+                <button type="button" id="take-photo" class="btn btn-success mt-2">📸 Ambil Foto</button>
               </div>
 
             </div>
@@ -68,16 +68,7 @@
       </div>
     </div>
     <div class="background-bottom"></div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const textarea = document.getElementById("comment");
 
-        textarea.addEventListener("input", function () {
-          this.style.height = "auto"; // reset dulu biar bisa mengecil kalau perlu
-          this.style.height = this.scrollHeight + "px"; // set sesuai isi
-        });
-      });
-    </script>
 </body>
 
 </html>
