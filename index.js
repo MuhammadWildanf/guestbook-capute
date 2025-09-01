@@ -31,33 +31,19 @@ admin.initializeApp({
   }),
   databaseURL:
     "https://infocomm-bangkok-default-rtdb.asia-southeast1.firebasedatabase.app",
+  storageBucket: "infocomm-bangkok.firebasestorage.app",
 });
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, "frontend")));
 
 // Folder uploads
-const uploadDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Multer setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const safeName = file.originalname.replace(/\s+/g, "_");
-    cb(null, Date.now() + "_" + safeName);
-  },
-});
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
-// Static uploads folder
-app.use("/uploads", express.static(uploadDir));
 
 // Middlewares
 app.use(express.json());
@@ -69,15 +55,27 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
+
+
 app.post("/submit-form", upload.single("photo"), async (req, res) => {
   try {
     const db = admin.database();
+    const bucket = admin.storage().bucket();
     const { name, comment } = req.body;
     const timestamp = admin.database.ServerValue.TIMESTAMP;
 
     let photoUrl = null;
+
     if (req.file) {
-      photoUrl = `/uploads/${req.file.filename}`;
+      const destFileName = `uploads/${Date.now()}_${req.file.originalname.replace(/\s+/g, "_")}`;
+      const file = bucket.file(destFileName);
+
+      await file.save(req.file.buffer, {
+        metadata: { contentType: req.file.mimetype },
+        public: true, // langsung bisa diakses publik
+      });
+
+      photoUrl = `https://storage.googleapis.com/${bucket.name}/${destFileName}`;
     }
 
     const ref = db.ref("testguest");
@@ -96,3 +94,5 @@ app.post("/submit-form", upload.single("photo"), async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
