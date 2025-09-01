@@ -49,18 +49,18 @@
                   <p class="text-center text-muted" style="font-size:0.95em;">Arahkan wajah ke kamera, klik <b>Ambil
                       Foto</b>. Jika kurang jelas, klik <b>Foto Ulang</b>.</p>
                   <div class="d-flex justify-content-center mb-2" style="position:relative;">
-  <video id="video" autoplay playsinline muted width="320" height="240"
-    style="border-radius:12px; background:#000; box-shadow:0 2px 8px #0002; transform:scaleX(-1);"></video>
-  <canvas id="canvas" width="320" height="240" style="display:none; transform:scaleX(-1);"></canvas>
-  <img id="photo-preview" src="" alt="Preview Foto"
-    style="display:none; border-radius:12px; box-shadow:0 2px 8px #0002; margin-top:10px;" width="320" height="240" />
-  <!-- Tambahkan frame overlay -->
-  <div id="camera-frame"
-    style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-           width:220px; height:160px; border:4px solid #1c8263; border-radius:50%;
+                    <video id="video" autoplay playsinline muted width="320" height="240"
+                      style="border-radius:12px; background:#000; box-shadow:0 2px 8px #0002; transform:scaleX(-1);"></video>
+                    <canvas id="canvas" width="320" height="240" style="display:none; transform:scaleX(-1);"></canvas>
+                    <img id="photo-preview" src="" alt="Preview Foto"
+                      style="display:none; border-radius:12px; box-shadow:0 2px 8px #0002; margin-top:10px;" width="320"
+                      height="240" />
+                    <!-- Tambahkan frame overlay -->
+                    <div id="camera-frame" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+           width:120px; height:160px; border:4px solid #1c8263; border-radius:50%;
            pointer-events:none; box-shadow:0 0 16px #1c826388;">
-  </div>
-</div>  
+                    </div>
+                  </div>
                   <select id="cameraSelect" class="form-select mb-2"></select>
                   <div class="d-flex justify-content-center gap-2">
                     <button type="button" id="take-photo" class="btn btn-success">📸 Ambil Foto</button>
