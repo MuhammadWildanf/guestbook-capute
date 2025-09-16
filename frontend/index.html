@@ -16,10 +16,11 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-  <script src="script.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.png" type="image/png" />
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="script.js" defer></script>
   <title>Guest Book</title>
 </head>
 
@@ -61,7 +62,6 @@
            pointer-events:none; box-shadow:0 0 16px #1c826388;">
                     </div>
                   </div>
-                  <select id="cameraSelect" class="form-select mb-2"></select>
                   <div class="d-flex justify-content-center gap-2">
                     <button type="button" id="take-photo" class="btn btn-success">📸 Ambil Foto</button>
                     <button type="button" id="retake-photo" class="btn btn-warning" style="display:none;">Foto

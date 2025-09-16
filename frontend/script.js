@@ -6,6 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.height = this.scrollHeight + "px";
   });
 
+Promise.all([
+  faceapi.nets.tinyFaceDetector.loadFromUri("https://justadudewhohacks.github.io/face-api.js/models"),
+]).then(() => {
+  // tunggu sampai video bener-bener jalan
+  video.addEventListener("playing", () => {
+    startDetection();
+  });
+});
+
+
   let isSubmitting = false;
   let capturedBlob = null;
   let currentStream = null;
@@ -13,43 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
   const takePhotoBtn = document.getElementById("take-photo");
-  const cameraSelect = document.getElementById("cameraSelect");
   const photoPreview = document.getElementById("photo-preview");
   const retakePhotoBtn = document.getElementById("retake-photo");
 
   // --- Load kamera ---
   async function loadCameras() {
-    try {
-      const tempStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      tempStream.getTracks().forEach((track) => track.stop());
-
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter((d) => d.kind === "videoinput");
-
-      cameraSelect.innerHTML = "";
-      videoDevices.forEach((device, index) => {
-        const option = document.createElement("option");
-        option.value = device.deviceId;
-        option.text = device.label || `Camera ${index + 1}`;
-        cameraSelect.appendChild(option);
-      });
-
-      if (videoDevices.length > 0) {
-        startCamera(videoDevices[0].deviceId);
-      } else {
-        startCamera(null);
-      }
-    } catch (err) {
-      console.error("Gagal ambil kamera:", err.name, err.message);
-      Swal.fire(
-        "Error",
-        "Tidak bisa mengakses kamera: " + err.message,
-        "error"
-      );
-    }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user" }, // "user" = kamera depan, "environment" = kamera belakang
+    });
+    video.srcObject = stream;
+    await video.play();
+    currentStream = stream;
+  } catch (err) {
+    console.error("Gagal akses kamera:", err);
+    Swal.fire("Error", "Tidak bisa mengakses kamera: " + err.message, "error");
   }
+}
+
 
   // --- Start kamera dengan fallback ---
   async function startCamera(deviceId) {
@@ -95,16 +86,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  cameraSelect.addEventListener("change", (e) => {
-    startCamera(e.target.value);
-  });
+  async function startDetection() {
+    const displaySize = { width: video.width, height: video.height };
+
+    // Buat canvas overlay untuk bounding box
+    const overlay = faceapi.createCanvasFromMedia(video);
+    overlay.style.position = "absolute";
+    overlay.style.left = video.offsetLeft + "px";
+    overlay.style.top = video.offsetTop + "px";
+    document
+      .querySelector(".d-flex.justify-content-center.mb-2")
+      .appendChild(overlay);
+
+    faceapi.matchDimensions(overlay, displaySize);
+
+    setInterval(async () => {
+      if (video.readyState === 4) {
+        const detections = await faceapi.detectAllFaces(
+          video,
+          new faceapi.TinyFaceDetectorOptions()
+        );
+        const resized = faceapi.resizeResults(detections, displaySize);
+
+        overlay.getContext("2d").clearRect(0, 0, overlay.width, overlay.height);
+        faceapi.draw.drawDetections(overlay, resized);
+      }
+    }, 200);
+  }
 
   // --- Capture foto (mirror & preview) ---
-  takePhotoBtn.addEventListener("click", () => {
-    if (!currentStream) {
-      Swal.fire("Error", "Kamera belum aktif!", "error");
+  takePhotoBtn.addEventListener("click", async () => {
+    const detections = await faceapi.detectAllFaces(
+      video,
+      new faceapi.TinyFaceDetectorOptions()
+    );
+    if (detections.length === 0) {
+      Swal.fire(
+        "Wajah tidak terdeteksi!",
+        "Pastikan wajah terlihat jelas di kamera.",
+        "error"
+      );
       return;
     }
+
+    // proses ambil foto (kode kamu yang lama tetap di sini)
     canvas.width = video.videoWidth || 320;
     canvas.height = video.videoHeight || 240;
     const context = canvas.getContext("2d");
@@ -121,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
       photoPreview.style.display = "block";
       video.style.display = "none";
       takePhotoBtn.style.display = "none";
-      cameraSelect.style.display = "none";
       retakePhotoBtn.style.display = "inline-block";
       Swal.fire("Foto berhasil diambil!", "", "success");
     }, "image/jpeg");
@@ -133,7 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
     retakePhotoBtn.style.display = "none";
     video.style.display = "block";
     takePhotoBtn.style.display = "inline-block";
-    cameraSelect.style.display = "inline-block";
     capturedBlob = null;
   });
 
@@ -177,11 +200,14 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.append("comment", comment);
       formData.append("photo", photoBlob, "camera-photo.jpg");
 
-      const response = await fetch("https://guestbook-capute.vercel.app/submit-form", {
-        // const response = await fetch("http://localhost:3000/submit-form", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://guestbook-capute.vercel.app/submit-form",
+        {
+          // const response = await fetch("http://localhost:3000/submit-form", {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         const errorMessage = await response.text();
