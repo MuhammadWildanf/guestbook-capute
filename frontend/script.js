@@ -6,14 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.height = this.scrollHeight + "px";
   });
 
-Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri("https://justadudewhohacks.github.io/face-api.js/models"),
-]).then(() => {
-  // tunggu sampai video bener-bener jalan
-  video.addEventListener("playing", () => {
-    startDetection();
-  });
-});
+  Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri("https://justadudewhohacks.github.io/face-api.js/models"),
+  ])
 
 
   let isSubmitting = false;
@@ -28,63 +23,21 @@ Promise.all([
 
   // --- Load kamera ---
   async function loadCameras() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user" }, // "user" = kamera depan, "environment" = kamera belakang
-    });
-    video.srcObject = stream;
-    await video.play();
-    currentStream = stream;
-  } catch (err) {
-    console.error("Gagal akses kamera:", err);
-    Swal.fire("Error", "Tidak bisa mengakses kamera: " + err.message, "error");
-  }
-}
-
-
-  // --- Start kamera dengan fallback ---
-  async function startCamera(deviceId) {
-    if (currentStream) {
-      currentStream.getTracks().forEach((track) => track.stop());
-    }
-
     try {
-      const constraints = deviceId
-        ? { video: { deviceId: { exact: deviceId } } }
-        : { video: { facingMode: "user" } };
-
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user" }, // "user" = kamera depan, "environment" = kamera belakang
+      });
       video.srcObject = stream;
       await video.play();
       currentStream = stream;
     } catch (err) {
-      console.warn("DeviceId timeout, coba fallback facingMode");
-      if (deviceId) {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-          });
-          video.srcObject = stream;
-          await video.play();
-          currentStream = stream;
-        } catch (err2) {
-          console.error("Gagal akses kamera sama sekali:", err2);
-          Swal.fire(
-            "Error",
-            "Tidak bisa mengakses kamera: " + err2.message,
-            "error"
-          );
-        }
-      } else {
-        console.error("Gagal akses kamera:", err);
-        Swal.fire(
-          "Error",
-          "Tidak bisa mengakses kamera: " + err.message,
-          "error"
-        );
-      }
+      console.error("Gagal akses kamera:", err);
+      Swal.fire("Error", "Tidak bisa mengakses kamera: " + err.message, "error");
     }
   }
+
+
+  // --- Start kamera dengan fallback ---
 
   async function startDetection() {
     const displaySize = { width: video.width, height: video.height };
